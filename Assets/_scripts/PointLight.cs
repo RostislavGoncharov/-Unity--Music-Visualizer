@@ -2,9 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Light))]
 public class PointLight : MonoBehaviour
 {
     [SerializeField] int band;
+    [SerializeField] float minIntensity;
+    [SerializeField] float maxIntensity;
 
     Light light;
 
@@ -15,6 +18,6 @@ public class PointLight : MonoBehaviour
 
     private void Update()
     {
-        light.intensity = AudioBase.normalizedBands[band];
+        light.intensity = AudioBase.normalizedBandBuffers[band] * (maxIntensity - minIntensity) + minIntensity;
     }
 }

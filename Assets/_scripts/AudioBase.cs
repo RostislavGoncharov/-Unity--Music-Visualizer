@@ -8,18 +8,17 @@ public class AudioBase : MonoBehaviour
     public static float[] samples = new float[512];
     public static float[] normalizedBands = new float[8];
     public static float[] normalizedBandBuffers = new float[8];
+    public static float[] bandBuffers = new float[8];
 
-    static float[] freqBands = new float[8];
-    static float[] bandBuffers = new float[8];
+    public static float[] freqBands = new float[8];
+    float[] freqBandHighest = new float[8];
 
-    float[] bufferDecrease = new float[bandBuffers.Length];
+    float[] bufferDecrease = new float[8];
 
     [SerializeField] float defaultBufferDecreaseValue = 0.005f;
     [SerializeField] float bufferDecreaseMultiplier = 1.2f;
 
     AudioSource audioSource;
-
-    float[] freqBandHighest = new float[freqBands.Length];
 
     private void Start()
     {
@@ -62,14 +61,13 @@ public class AudioBase : MonoBehaviour
 
             average /= count;
             freqBands[i - 1] = average * 10;
-
         }
     }
 
     // Method to smooth out value changes
     void UseBandBuffer()
     {
-        for (int i = 0; i < bandBuffers.Length; i++)
+        for (int i = 0; i < 8; i++)
         {
             if (bandBuffers[i] < freqBands[i])
             {
@@ -79,7 +77,7 @@ public class AudioBase : MonoBehaviour
 
             if (bandBuffers[i] > freqBands[i])
             {
-                freqBands[i] -= bufferDecrease[i];
+                bandBuffers[i] -= bufferDecrease[i];
                 bufferDecrease[i] *= bufferDecreaseMultiplier;
             }
         }
@@ -87,7 +85,7 @@ public class AudioBase : MonoBehaviour
 
     void CreateNormalizedBands()
     {
-        for (int i = 0; i < freqBands.Length; i++)
+        for (int i = 0; i < 8; i++)
         {
             if (freqBands[i] > freqBandHighest[i])
             {
