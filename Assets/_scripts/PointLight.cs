@@ -19,5 +19,10 @@ public class PointLight : MonoBehaviour
     private void Update()
     {
         light.intensity = AudioBase.normalizedBandBuffers[band] * (maxIntensity - minIntensity) + minIntensity;
+
+        if (AudioBase.normalizedBandBuffers[band] == 1)
+        {
+            light.color = new Color(Random.Range(0, 1f), Random.Range(0, 1f), 1);
+        }
     }
 }
