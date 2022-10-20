@@ -23,6 +23,11 @@ public class AudioBase : MonoBehaviour
     private void Start()
     {
         audioSource = GetComponent<AudioSource>();
+
+        for (int i = 0; i < normalizedBandBuffers.Length; i++)
+        {
+            normalizedBandBuffers[i] = 0.01f;
+        }
     }
 
     private void Update()
