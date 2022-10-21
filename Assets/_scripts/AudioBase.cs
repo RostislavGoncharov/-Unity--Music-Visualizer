@@ -9,14 +9,16 @@ public class AudioBase : MonoBehaviour
     public static event StopPlaying onStopPlaying;
 
     public static float[] samples = new float[512];
+    public static float normalizedAverageVolume;
     public static float[] normalizedBands = new float[8];
     public static float[] normalizedBandBuffers = new float[8];
     public static float[] bandBuffers = new float[8];
 
     public static float[] freqBands = new float[8];
-    float[] freqBandHighest = new float[8];
 
+    float[] freqBandHighest = new float[8];
     float[] bufferDecrease = new float[8];
+    float[] outputSamples = new float[512];
 
     [SerializeField] float defaultBufferDecreaseValue = 0.005f;
     [SerializeField] float bufferDecreaseMultiplier = 1.2f;
@@ -43,6 +45,7 @@ public class AudioBase : MonoBehaviour
         }
 
         GetSpectrumAudioData();
+        GetAverageVolume();
         GetFrequencyBands();
         UseBandBuffer();
         CreateNormalizedBands();
@@ -57,6 +60,19 @@ public class AudioBase : MonoBehaviour
     void GetSpectrumAudioData()
     {
         audioSource.GetSpectrumData(samples, 0, FFTWindow.BlackmanHarris);
+    }
+
+    void GetAverageVolume()
+    {
+        float sum = 0;
+
+        foreach(float buffer in normalizedBandBuffers)
+        {
+            sum += buffer;
+        }
+
+        normalizedAverageVolume = Mathf.Abs(sum / normalizedBandBuffers.Length);
+        Debug.Log(normalizedAverageVolume);
     }
 
     // Formula to split all samples into a smaller number of frequency bands
