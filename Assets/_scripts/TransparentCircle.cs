@@ -13,6 +13,7 @@ public class TransparentCircle : MonoBehaviour
     {
         material = GetComponent<Renderer>().material;
         transform.rotation = Random.rotation;
+        band = Random.Range(0, 3);
     }
 
     private void Update()

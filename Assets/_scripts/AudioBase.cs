@@ -5,6 +5,9 @@ using UnityEngine;
 [RequireComponent(typeof(AudioSource))]
 public class AudioBase : MonoBehaviour
 {
+    public delegate void StopPlaying();
+    public static event StopPlaying onStopPlaying;
+
     public static float[] samples = new float[512];
     public static float[] normalizedBands = new float[8];
     public static float[] normalizedBandBuffers = new float[8];
@@ -20,6 +23,8 @@ public class AudioBase : MonoBehaviour
 
     AudioSource audioSource;
 
+    bool isActive = true;
+
     private void Start()
     {
         audioSource = GetComponent<AudioSource>();
@@ -32,10 +37,21 @@ public class AudioBase : MonoBehaviour
 
     private void Update()
     {
+        if (!isActive)
+        {
+            return;
+        }
+
         GetSpectrumAudioData();
         GetFrequencyBands();
         UseBandBuffer();
         CreateNormalizedBands();
+
+        if (!audioSource.isPlaying)
+        {
+            onStopPlaying?.Invoke();
+            isActive = false;
+        }
     }
 
     void GetSpectrumAudioData()

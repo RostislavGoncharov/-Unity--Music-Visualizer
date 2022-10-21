@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.37311953, g: 0.38074014, b: 0.3587274, a: 1}
+  m_IndirectSpecularColor: {r: 0.12731749, g: 0.13414757, b: 0.1210787, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -154,8 +154,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f483319bcd3eeac4b94084d813997232, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  band: 4
-  minIntensity: 0
+  band: 7
+  minIntensity: 1
   maxIntensity: 16
 --- !u!114 &654399184
 MonoBehaviour:
@@ -309,7 +309,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 751445475}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 3.24, z: -51.68}
+  m_LocalPosition: {x: 0, y: 3.24, z: -31.06}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -348,7 +348,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   band: 7
-  minIntensity: 0
+  minIntensity: 1
   maxIntensity: 16
 --- !u!114 &867048229
 MonoBehaviour:
@@ -488,7 +488,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 6d06b95d88433364c8ecc0f947691c5e, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 960370c2fa33cd446b055e309dfaef85, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -982,8 +982,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f483319bcd3eeac4b94084d813997232, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  band: 1
-  minIntensity: 0
+  band: 2
+  minIntensity: 1
   maxIntensity: 16
 --- !u!114 &1554142497
 MonoBehaviour:
@@ -1236,8 +1236,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f483319bcd3eeac4b94084d813997232, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  band: 0
-  minIntensity: 0
+  band: 5
+  minIntensity: 1
   maxIntensity: 16
 --- !u!114 &1627236922
 MonoBehaviour:
@@ -1252,11 +1252,11 @@ MonoBehaviour:
   m_Name: New Aura Base Settings
   m_EditorClassIdentifier: 
   useDensity: 1
-  density: 0.15
+  density: 0.06
   useScattering: 1
-  scattering: 0.5
+  scattering: 0.217
   useAmbientLighting: 1
-  ambientLightingStrength: 1
+  ambientLightingStrength: 0.29
   useColor: 0
   color: {r: 0, g: 0.5, b: 0.5, a: 0.5}
   colorStrength: 1
@@ -1296,8 +1296,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f483319bcd3eeac4b94084d813997232, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  band: 6
-  minIntensity: 0
+  band: 7
+  minIntensity: 1
   maxIntensity: 16
 --- !u!114 &1680829316
 MonoBehaviour:
@@ -1440,8 +1440,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f483319bcd3eeac4b94084d813997232, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  band: 3
-  minIntensity: 0
+  band: 7
+  minIntensity: 1
   maxIntensity: 16
 --- !u!114 &1689593360
 MonoBehaviour:
@@ -1584,8 +1584,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f483319bcd3eeac4b94084d813997232, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  band: 5
-  minIntensity: 0
+  band: 6
+  minIntensity: 1
   maxIntensity: 16
 --- !u!114 &1782168739
 MonoBehaviour:
@@ -1770,7 +1770,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1981840268}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 46.8, z: 267}
+  m_LocalPosition: {x: 0, y: -16.5, z: 267}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1849,7 +1849,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   band: 2
-  minIntensity: 0
+  minIntensity: 1
   maxIntensity: 16
 --- !u!114 &2069443171
 MonoBehaviour:
