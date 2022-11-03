@@ -7,21 +7,18 @@ public class CircleSpawner : MonoBehaviour
     [SerializeField] GameObject[] circleGroupPrefabs;
     [SerializeField] Transform target;
 
-    bool isActive = true;
+    bool isActive = false;
 
     private void OnEnable()
     {
-        AudioBase.onStopPlaying += StopSpawning;
+        AudioBase.OnStopPlaying += StopSpawning;
+        AudioBase.OnStartPlaying += StartSpawning;
     }
 
     private void OnDisable()
     {
-        AudioBase.onStopPlaying -= StopSpawning;
-    }
-
-    private void Start()
-    {
-        StartCoroutine(SpawnCircles());
+        AudioBase.OnStopPlaying -= StopSpawning;
+        AudioBase.OnStartPlaying -= StartSpawning;
     }
 
     IEnumerator SpawnCircles()
@@ -36,6 +33,12 @@ public class CircleSpawner : MonoBehaviour
 
             yield return new WaitForSeconds(Mathf.Abs(Random.Range(0.7f, 1.5f) - AudioBase.normalizedAverageVolume));
         }
+    }
+
+    void StartSpawning()
+    {
+        isActive = true;
+        StartCoroutine(SpawnCircles());
     }
 
     void StopSpawning()
