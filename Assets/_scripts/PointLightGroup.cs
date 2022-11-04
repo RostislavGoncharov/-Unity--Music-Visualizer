@@ -8,7 +8,7 @@ public class PointLightGroup : MonoBehaviour
 
     void Update()
     {
-        if (AudioBase.outputVolume > 0.5f)
+        if (AudioBase.normalizedAverageVolume > 0.5f)
         {
             transform.Rotate(0, 0, rotateSpeed * Time.deltaTime);
         }

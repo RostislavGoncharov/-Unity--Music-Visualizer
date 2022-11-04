@@ -22,6 +22,6 @@ public class TransparentCircle : MonoBehaviour
 
     private void Update()
     {
-        auraLight.LightComponent.intensity = AudioBase.outputVolume * 100;
+        auraLight.LightComponent.intensity = AudioBase.normalizedAverageVolume * 100;
     }
 }

@@ -470,7 +470,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   band: 4
-  minIntensity: 7
+  minIntensity: 0
   maxIntensity: 16
 --- !u!114 &654399184
 MonoBehaviour:
@@ -809,7 +809,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   band: 7
-  minIntensity: 7
+  minIntensity: 0
   maxIntensity: 16
 --- !u!114 &867048229
 MonoBehaviour:
@@ -1705,7 +1705,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   band: 2
-  minIntensity: 7
+  minIntensity: 0
   maxIntensity: 16
 --- !u!114 &1554142497
 MonoBehaviour:
@@ -1959,7 +1959,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   band: 5
-  minIntensity: 7
+  minIntensity: 0
   maxIntensity: 16
 --- !u!114 &1627236922
 MonoBehaviour:
@@ -2019,7 +2019,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   band: 7
-  minIntensity: 7
+  minIntensity: 0
   maxIntensity: 16
 --- !u!114 &1680829316
 MonoBehaviour:
@@ -2163,7 +2163,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   band: 4
-  minIntensity: 7
+  minIntensity: 0
   maxIntensity: 16
 --- !u!114 &1689593360
 MonoBehaviour:
@@ -2451,7 +2451,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   band: 4
-  minIntensity: 7
+  minIntensity: 0
   maxIntensity: 16
 --- !u!114 &1782168739
 MonoBehaviour:
@@ -2992,7 +2992,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   band: 2
-  minIntensity: 7
+  minIntensity: 0
   maxIntensity: 16
 --- !u!114 &2069443171
 MonoBehaviour:

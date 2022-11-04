@@ -16,14 +16,12 @@ public class AudioBase : MonoBehaviour
     public static event StopPlaying OnStopPlaying;
 
     public static float[] samples = new float[512];
-    public static float[] outputSamples = new float[512];
-    public static float outputVolume;
     public static float normalizedAverageVolume;
-    public static float[] normalizedBands = new float[8];
     public static float[] normalizedBandBuffers = new float[8];
     public static float[] bandBuffers = new float[8];
-
     public static float[] freqBands = new float[8];
+
+    public static bool isActive = false;
 
     float[] freqBandHighest = new float[8];
     float[] bufferDecrease = new float[8];
@@ -33,16 +31,9 @@ public class AudioBase : MonoBehaviour
 
     public AudioSource audioSource;
 
-    bool isActive = true;
-
     private void Awake()
     {
         audioSource = GetComponent<AudioSource>();
-
-        for (int i = 0; i < normalizedBandBuffers.Length; i++)
-        {
-            normalizedBandBuffers[i] = 0.01f;
-        }
 
         for (int i = 0; i < freqBandHighest.Length; i++)
         {
@@ -74,6 +65,7 @@ public class AudioBase : MonoBehaviour
     {
         audioSource.Play();
         OnStartPlaying?.Invoke();
+        isActive = true;
     }
 
     void GetSpectrumAudioData()
@@ -83,27 +75,15 @@ public class AudioBase : MonoBehaviour
 
     void GetAverageVolume()
     {
-        audioSource.GetOutputData(outputSamples, 1);
+        float sum = 0;
 
-        outputVolume = 0;
-
-        foreach (float sample in outputSamples)
+        foreach(float buffer in normalizedBandBuffers)
         {
-            outputVolume += sample;
+            sum += buffer;
         }
+
+        normalizedAverageVolume = Mathf.Abs(sum / normalizedBandBuffers.Length);
     }
-
-    //void GetAverageVolume()
-    //{
-    //    float sum = 0;
-
-    //    foreach(float buffer in normalizedBandBuffers)
-    //    {
-    //        sum += buffer;
-    //    }
-
-    //    normalizedAverageVolume = Mathf.Abs(sum / normalizedBandBuffers.Length);
-    //}
 
     // Formula to split all samples into a smaller number of frequency bands
     void GetFrequencyBands()
@@ -159,7 +139,6 @@ public class AudioBase : MonoBehaviour
                 freqBandHighest[i] = freqBands[i];
             }
 
-            normalizedBands[i] = freqBands[i] / freqBandHighest[i];
             normalizedBandBuffers[i] = bandBuffers[i] / freqBandHighest[i];
         }
     }
