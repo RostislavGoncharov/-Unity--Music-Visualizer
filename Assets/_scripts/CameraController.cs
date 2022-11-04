@@ -10,6 +10,11 @@ public class CameraController : MonoBehaviour
 
     private void Update()
     {
+        if (!AudioBase.isActive)
+        {
+            return;
+        }
+
         if (volume.profile.TryGetSettings<LensDistortion>(out lensDistortionSettings))
         {
             if (AudioBase.normalizedAverageVolume >= 0.5f)

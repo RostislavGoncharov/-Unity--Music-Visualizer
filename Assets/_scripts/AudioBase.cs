@@ -17,30 +17,27 @@ public class AudioBase : MonoBehaviour
 
     public static float[] samples = new float[512];
     public static float normalizedAverageVolume;
-    public static float[] normalizedBands = new float[8];
     public static float[] normalizedBandBuffers = new float[8];
     public static float[] bandBuffers = new float[8];
-
     public static float[] freqBands = new float[8];
+
+    public static bool isActive = false;
 
     float[] freqBandHighest = new float[8];
     float[] bufferDecrease = new float[8];
-    float[] outputSamples = new float[512];
 
     [SerializeField] float defaultBufferDecreaseValue = 0.005f;
     [SerializeField] float bufferDecreaseMultiplier = 1.2f;
 
-    AudioSource audioSource;
+    public AudioSource audioSource;
 
-    bool isActive = true;
-
-    private void Start()
+    private void Awake()
     {
         audioSource = GetComponent<AudioSource>();
 
-        for (int i = 0; i < normalizedBandBuffers.Length; i++)
+        for (int i = 0; i < freqBandHighest.Length; i++)
         {
-            normalizedBandBuffers[i] = 0.01f;
+            freqBandHighest[i] = 0.01f;
         }
     }
 
@@ -68,51 +65,7 @@ public class AudioBase : MonoBehaviour
     {
         audioSource.Play();
         OnStartPlaying?.Invoke();
-    }
-
-    async public void ChooseAudioClip()
-    {
-        string path = FileBrowser.Instance.OpenSingleFile("wav");
-        Debug.Log(path);
-
-        if (path == "")
-        {
-            return;
-        }
-
-        var newClip = await LoadClip(path);
-        audioSource.clip = newClip;
-    }
-
-    async Task<AudioClip> LoadClip(string path)
-    {
-        AudioClip clip = null;
-        using (UnityWebRequest uwr = UnityWebRequestMultimedia.GetAudioClip(path, AudioType.WAV))
-        {
-            uwr.SendWebRequest();
-
-            try
-            {
-                while (!uwr.isDone) await Task.Delay(5);
-
-                if (uwr.isNetworkError || uwr.isHttpError)
-                {
-                    Debug.Log($"{uwr.error}");
-                }
-
-                else
-                {
-                    clip = DownloadHandlerAudioClip.GetContent(uwr);
-                }
-            }
-
-            catch (Exception err)
-            {
-                Debug.Log($"{err.Message}, {err.StackTrace}");
-            }
-        }
-
-        return clip;
+        isActive = true;
     }
 
     void GetSpectrumAudioData()
@@ -186,7 +139,6 @@ public class AudioBase : MonoBehaviour
                 freqBandHighest[i] = freqBands[i];
             }
 
-            normalizedBands[i] = freqBands[i] / freqBandHighest[i];
             normalizedBandBuffers[i] = bandBuffers[i] / freqBandHighest[i];
         }
     }
