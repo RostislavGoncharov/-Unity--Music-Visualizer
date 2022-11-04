@@ -83,16 +83,14 @@ public class AudioBase : MonoBehaviour
 
     void GetAverageVolume()
     {
-        audioSource.GetOutputData(outputSamples, 0);
+        audioSource.GetOutputData(outputSamples, 1);
 
-        float sum = 0;
+        outputVolume = 0;
 
         foreach (float sample in outputSamples)
         {
-            sum += sample;
+            outputVolume += sample;
         }
-
-        outputVolume = sum / outputSamples.Length;
     }
 
     //void GetAverageVolume()
