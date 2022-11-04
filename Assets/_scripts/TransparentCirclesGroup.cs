@@ -13,7 +13,7 @@ public class TransparentCirclesGroup : MonoBehaviour
     {
         transform.rotation = Random.rotation;
         transform.localScale *= Random.Range(0.5f, 3f);
-        baseSpeed = Mathf.Abs(AudioBase.normalizedAverageVolume * 5);
+        baseSpeed = Mathf.Abs(AudioBase.outputVolume * 100);
 
         if (AudioBase.normalizedAverageVolume >= 0.5f)
         {
@@ -28,7 +28,6 @@ public class TransparentCirclesGroup : MonoBehaviour
 
     private void Update()
     {
-        //transform.Rotate(new Vector3(AudioBase.normalizedBandBuffers[1], AudioBase.normalizedBandBuffers[2], AudioBase.normalizedBandBuffers[5]) * Time.deltaTime, Space.World);
         transform.position = Vector3.MoveTowards(transform.position, target.position, speed * Time.deltaTime);
 
         if (transform.position.z >= 1000 || transform.position.z <= -1000)

@@ -31,7 +31,7 @@ public class CircleSpawner : MonoBehaviour
             TransparentCirclesGroup circleGroupScript = circleGroup.GetComponent<TransparentCirclesGroup>();
             circleGroupScript.target = target;
 
-            yield return new WaitForSeconds(Mathf.Abs(Random.Range(0.7f, 1.5f) - AudioBase.normalizedAverageVolume));
+            yield return new WaitForSeconds(Mathf.Abs(Random.Range(0.7f, 1.5f) - AudioBase.outputVolume));
         }
     }
 

@@ -12,7 +12,7 @@ public class CameraController : MonoBehaviour
     {
         if (volume.profile.TryGetSettings<LensDistortion>(out lensDistortionSettings))
         {
-            if (AudioBase.normalizedAverageVolume >= 0.5f)
+            if (AudioBase.outputVolume >= 0.5f)
             {
                 lensDistortionSettings.intensity.Override(lensDistortionSettings.intensity - 10 * Time.deltaTime);
                 lensDistortionSettings.scale.Override(lensDistortionSettings.scale + 0.1f * Time.deltaTime);
@@ -23,7 +23,7 @@ public class CameraController : MonoBehaviour
                 }
             }
 
-            else if (AudioBase.normalizedAverageVolume <= 0.3f)
+            else if (AudioBase.outputVolume <= 0.3f)
             {
                 lensDistortionSettings.intensity.Override(lensDistortionSettings.intensity + 5 * Time.deltaTime);
 

@@ -207,8 +207,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 914682588}
-        m_TargetAssemblyTypeName: AudioBase, Assembly-CSharp
+      - m_Target: {fileID: 251974260}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
         m_MethodName: ChooseAudioClip
         m_Mode: 1
         m_Arguments:
@@ -257,6 +257,52 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 75788635}
   m_CullTransparentMesh: 1
+--- !u!1 &251974259
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 251974261}
+  - component: {fileID: 251974260}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &251974260
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 251974259}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a06ed4c87b4a263488c0b6588c004135, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioBase: {fileID: 914682588}
+  menu: {fileID: 976174334}
+--- !u!4 &251974261
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 251974259}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.292284, y: 13.115194, z: -45.945526}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 12
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &549035709
 GameObject:
   m_ObjectHideFlags: 0
@@ -681,6 +727,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 251974260}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: HideMenu
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &839443763
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1006,6 +1064,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   defaultBufferDecreaseValue: 0.005
   bufferDecreaseMultiplier: 1.2
+  audioSource: {fileID: 0}
 --- !u!1 &949851473
 GameObject:
   m_ObjectHideFlags: 0
@@ -1338,7 +1397,7 @@ GameObject:
   - component: {fileID: 976174333}
   - component: {fileID: 976174332}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: Menu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -18,7 +18,7 @@ public class PointLight : MonoBehaviour
 
     private void Update()
     {
-        light.intensity = AudioBase.normalizedBandBuffers[band] * (maxIntensity - minIntensity) + minIntensity - 8;
+        light.intensity = AudioBase.normalizedBandBuffers[band] * (maxIntensity - minIntensity) + minIntensity;
 
         if (AudioBase.normalizedBandBuffers[band] == 1)
         {

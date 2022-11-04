@@ -8,13 +8,10 @@ public class TransparentCircle : MonoBehaviour
 {
     [SerializeField] Transform circlesGroup;
 
-    Material material;
     AuraLight auraLight;
 
     private void Start()
     {
-        material = GetComponent<Renderer>().material;
-
         auraLight = GetComponent<AuraLight>();
         auraLight.LightComponent.range = 1;
         auraLight.LightComponent.intensity = 10;
@@ -25,6 +22,6 @@ public class TransparentCircle : MonoBehaviour
 
     private void Update()
     {
-        auraLight.LightComponent.intensity = AudioBase.normalizedAverageVolume * 100;
+        auraLight.LightComponent.intensity = AudioBase.outputVolume * 100;
     }
 }

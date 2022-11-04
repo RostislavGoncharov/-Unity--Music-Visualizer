@@ -16,6 +16,8 @@ public class AudioBase : MonoBehaviour
     public static event StopPlaying OnStopPlaying;
 
     public static float[] samples = new float[512];
+    public static float[] outputSamples = new float[512];
+    public static float outputVolume;
     public static float normalizedAverageVolume;
     public static float[] normalizedBands = new float[8];
     public static float[] normalizedBandBuffers = new float[8];
@@ -25,22 +27,26 @@ public class AudioBase : MonoBehaviour
 
     float[] freqBandHighest = new float[8];
     float[] bufferDecrease = new float[8];
-    float[] outputSamples = new float[512];
 
     [SerializeField] float defaultBufferDecreaseValue = 0.005f;
     [SerializeField] float bufferDecreaseMultiplier = 1.2f;
 
-    AudioSource audioSource;
+    public AudioSource audioSource;
 
     bool isActive = true;
 
-    private void Start()
+    private void Awake()
     {
         audioSource = GetComponent<AudioSource>();
 
         for (int i = 0; i < normalizedBandBuffers.Length; i++)
         {
             normalizedBandBuffers[i] = 0.01f;
+        }
+
+        for (int i = 0; i < freqBandHighest.Length; i++)
+        {
+            freqBandHighest[i] = 0.01f;
         }
     }
 
@@ -70,51 +76,6 @@ public class AudioBase : MonoBehaviour
         OnStartPlaying?.Invoke();
     }
 
-    async public void ChooseAudioClip()
-    {
-        string path = FileBrowser.Instance.OpenSingleFile("wav");
-        Debug.Log(path);
-
-        if (path == "")
-        {
-            return;
-        }
-
-        var newClip = await LoadClip(path);
-        audioSource.clip = newClip;
-    }
-
-    async Task<AudioClip> LoadClip(string path)
-    {
-        AudioClip clip = null;
-        using (UnityWebRequest uwr = UnityWebRequestMultimedia.GetAudioClip(path, AudioType.WAV))
-        {
-            uwr.SendWebRequest();
-
-            try
-            {
-                while (!uwr.isDone) await Task.Delay(5);
-
-                if (uwr.isNetworkError || uwr.isHttpError)
-                {
-                    Debug.Log($"{uwr.error}");
-                }
-
-                else
-                {
-                    clip = DownloadHandlerAudioClip.GetContent(uwr);
-                }
-            }
-
-            catch (Exception err)
-            {
-                Debug.Log($"{err.Message}, {err.StackTrace}");
-            }
-        }
-
-        return clip;
-    }
-
     void GetSpectrumAudioData()
     {
         audioSource.GetSpectrumData(samples, 0, FFTWindow.BlackmanHarris);
@@ -122,15 +83,29 @@ public class AudioBase : MonoBehaviour
 
     void GetAverageVolume()
     {
+        audioSource.GetOutputData(outputSamples, 0);
+
         float sum = 0;
 
-        foreach(float buffer in normalizedBandBuffers)
+        foreach (float sample in outputSamples)
         {
-            sum += buffer;
+            sum += sample;
         }
 
-        normalizedAverageVolume = Mathf.Abs(sum / normalizedBandBuffers.Length);
+        outputVolume = sum / outputSamples.Length;
     }
+
+    //void GetAverageVolume()
+    //{
+    //    float sum = 0;
+
+    //    foreach(float buffer in normalizedBandBuffers)
+    //    {
+    //        sum += buffer;
+    //    }
+
+    //    normalizedAverageVolume = Mathf.Abs(sum / normalizedBandBuffers.Length);
+    //}
 
     // Formula to split all samples into a smaller number of frequency bands
     void GetFrequencyBands()
