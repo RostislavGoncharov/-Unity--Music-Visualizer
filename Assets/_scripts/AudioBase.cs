@@ -8,10 +8,7 @@ using System;
 
 [RequireComponent(typeof(AudioSource))]
 public class AudioBase : MonoBehaviour
-{
-    public delegate void StartPlaying();
-    public static event StartPlaying OnStartPlaying;
-    
+{    
     public delegate void StopPlaying();
     public static event StopPlaying OnStopPlaying;
 
@@ -58,14 +55,9 @@ public class AudioBase : MonoBehaviour
         {
             OnStopPlaying?.Invoke();
             isActive = false;
-        }
-    }
 
-    public void Launch()
-    {
-        audioSource.Play();
-        OnStartPlaying?.Invoke();
-        isActive = true;
+            GameManager.Instance.ResetScene();
+        }
     }
 
     void GetSpectrumAudioData()

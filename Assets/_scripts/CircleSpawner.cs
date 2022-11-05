@@ -12,13 +12,13 @@ public class CircleSpawner : MonoBehaviour
     private void OnEnable()
     {
         AudioBase.OnStopPlaying += StopSpawning;
-        AudioBase.OnStartPlaying += StartSpawning;
+        GameManager.OnStartPlaying += StartSpawning;
     }
 
     private void OnDisable()
     {
         AudioBase.OnStopPlaying -= StopSpawning;
-        AudioBase.OnStartPlaying -= StartSpawning;
+        GameManager.OnStartPlaying -= StartSpawning;
     }
 
     IEnumerator SpawnCircles()
