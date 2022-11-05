@@ -1,10 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
+/*
+ * This class handles all audio analysis and should be attached to the music source in the scene.
+ */
+
 using UnityEngine;
-using Crosstales.FB;
-using System.Threading.Tasks;
-using UnityEngine.Networking;
-using System;
 
 [RequireComponent(typeof(AudioSource))]
 public class AudioBase : MonoBehaviour
@@ -32,6 +30,7 @@ public class AudioBase : MonoBehaviour
     {
         audioSource = GetComponent<AudioSource>();
 
+        // Set the initial values to non-zero to avoid division by zero in CreateNormalizedBands.
         for (int i = 0; i < freqBandHighest.Length; i++)
         {
             freqBandHighest[i] = 0.01f;
@@ -46,11 +45,12 @@ public class AudioBase : MonoBehaviour
         }
 
         GetSpectrumAudioData();
-        GetAverageVolume();
         GetFrequencyBands();
-        UseBandBuffer();
+        CreateBandBuffers();
         CreateNormalizedBands();
+        GetNormalizedAverageVolume();
 
+        // Raise an event and reset the scene upon reaching the end of the audio clip.
         if (!audioSource.isPlaying)
         {
             OnStopPlaying?.Invoke();
@@ -65,19 +65,7 @@ public class AudioBase : MonoBehaviour
         audioSource.GetSpectrumData(samples, 0, FFTWindow.BlackmanHarris);
     }
 
-    void GetAverageVolume()
-    {
-        float sum = 0;
-
-        foreach(float buffer in normalizedBandBuffers)
-        {
-            sum += buffer;
-        }
-
-        normalizedAverageVolume = Mathf.Abs(sum / normalizedBandBuffers.Length);
-    }
-
-    // Formula to split all samples into a smaller number of frequency bands
+    // Split all samples into a smaller number of frequency bands.
     void GetFrequencyBands()
     {
         int count = 0;
@@ -103,8 +91,8 @@ public class AudioBase : MonoBehaviour
         }
     }
 
-    // Method to smooth out value changes
-    void UseBandBuffer()
+    // Smooth out value changes.
+    void CreateBandBuffers()
     {
         for (int i = 0; i < 8; i++)
         {
@@ -116,12 +104,14 @@ public class AudioBase : MonoBehaviour
 
             if (bandBuffers[i] > freqBands[i])
             {
+                // Decrease the value by bufferDecrease value which keeps increasing
                 bandBuffers[i] -= bufferDecrease[i];
                 bufferDecrease[i] *= bufferDecreaseMultiplier;
             }
         }
     }
 
+    // Convert band buffer values into values between 0 and 1.
     void CreateNormalizedBands()
     {
         for (int i = 0; i < 8; i++)
@@ -133,5 +123,18 @@ public class AudioBase : MonoBehaviour
 
             normalizedBandBuffers[i] = bandBuffers[i] / freqBandHighest[i];
         }
+    }
+    
+    // Find the average value of all normalized band buffers. This value will be between 0 and 1.
+    void GetNormalizedAverageVolume()
+    {
+        float sum = 0;
+
+        foreach (float buffer in normalizedBandBuffers)
+        {
+            sum += buffer;
+        }
+
+        normalizedAverageVolume = Mathf.Abs(sum / normalizedBandBuffers.Length);
     }
 }

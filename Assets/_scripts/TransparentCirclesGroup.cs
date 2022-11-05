@@ -1,5 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
+/*
+ * This class is attached to Transparent Circles Group prefabs.
+ * It controls their scale, rotation and movement towards the Target position.
+ */
+
 using UnityEngine;
 
 public class TransparentCirclesGroup : MonoBehaviour

@@ -1,5 +1,9 @@
+/*
+ * This class controls the spawning of Transparent Circle Groups.
+ * Spawning only happens when the audio clip is playing.
+ */
+
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CircleSpawner : MonoBehaviour
@@ -28,6 +32,7 @@ public class CircleSpawner : MonoBehaviour
             int index = Random.Range(0, circleGroupPrefabs.Length);
             GameObject circleGroup = Instantiate(circleGroupPrefabs[index], transform.position + Random.onUnitSphere * 30, Quaternion.identity);
 
+            // Set the target for the instantiated Transparent Circles Group to move towards.
             TransparentCirclesGroup circleGroupScript = circleGroup.GetComponent<TransparentCirclesGroup>();
             circleGroupScript.target = target;
 

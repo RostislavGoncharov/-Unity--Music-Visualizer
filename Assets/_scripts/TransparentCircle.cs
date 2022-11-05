@@ -1,5 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
+/*
+ * This class controls the scale, rotation and light intensity
+ * of each Transparent Circle moving through the scene.
+ */
+
+
 using UnityEngine;
 using Aura2API;
 

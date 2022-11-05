@@ -1,5 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
+/*
+ * This class controls the point light group positioned in front of the main camera.
+ * It currently causes the lights to rotate based on audio volume.
+ */
+
 using UnityEngine;
 
 public class PointLightGroup : MonoBehaviour
