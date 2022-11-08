@@ -37,7 +37,8 @@ public class GameManager : MonoBehaviour
     // Open a wav file using File Browser Pro and assign it to the audio clip.
     async public void ChooseAudioClip()
     {
-        string path = FileBrowser.Instance.OpenSingleFile("wav");
+        string[] extensions = { "wav", "mp3", "flac" };
+        string path = FileBrowser.Instance.OpenSingleFile("Open File", "", "", extensions);
         Debug.Log(path);
 
         if (path == "")
